@@ -1,13 +1,54 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println("Hello and welcome!");
+package src;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+import java.util.Scanner;
+import src.controller.CurrencyController;
+
+public class Main {
+    void main() {
+
+        Scanner scanner = new Scanner(System.in);
+        CurrencyController controller = new CurrencyController();
+
+        System.out.println("===========================================");
+        System.out.println("      CONVERSOR DE MOEDAS (API) ");
+        System.out.println("===========================================\n");
+
+        System.out.println("Escolha uma conversão:");
+        System.out.println("1 - USD → BRL");
+        System.out.println("2 - BRL → USD");
+        System.out.println("3 - EUR → GBP");
+        System.out.println("4 - GBP → EUR");
+        System.out.println("5 - EUR → USD");
+        System.out.println("6 - USD → EUR");
+        System.out.print("\nDigite a opção desejada: ");
+
+        int opcao = scanner.nextInt();
+
+        String from = "";
+        String to = "";
+
+        switch (opcao) {
+            case 1 -> { from = "USD"; to = "BRL"; }
+            case 2 -> { from = "BRL"; to = "USD"; }
+            case 3 -> { from = "EUR"; to = "GBP"; }
+            case 4 -> { from = "GBP"; to = "EUR"; }
+            case 5 -> { from = "EUR"; to = "USD"; }
+            case 6 -> { from = "USD"; to = "EUR"; }
+            default -> {
+                System.out.println("Opção inválida! Encerrando...");
+                System.exit(0);
+            }
+        }
+
+        System.out.print("\nDigite o valor que deseja converter: ");
+        double valor = scanner.nextDouble();
+
+        double resultado = controller.convert(from, to, valor);
+
+        System.out.println("\n===========================================");
+        System.out.printf("RESULTADO: %.2f %s = %.2f %s\n", valor, from, resultado, to);
+        System.out.println("===========================================");
+
+        scanner.close();
     }
 }
